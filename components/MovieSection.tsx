@@ -40,7 +40,7 @@ const MovieSection: React.FC<MovieSectionProps> = ({
               key={movie.id}
               id={Number(movie.id)}
               poster={movie.poster_path}
-              title={movie.title}
+              title={movie.title || movie.original_name}
             />
           ))}
         </div>

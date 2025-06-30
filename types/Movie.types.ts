@@ -4,6 +4,7 @@ export interface Movie {
   poster_path: string;
   trailerUrl: string;
   posterUrl: string;
+  original_name: string;
   rating?: number;
 }
 
