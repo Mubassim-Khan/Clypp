@@ -53,7 +53,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
           className="rounded-lg shadow-md"
         />
       )}
-      <div className="mt-2 text-center font-semibold text-sm truncate">
+      <div className="mt-2 text-center font-semibold text-medium truncate">
         {title}
       </div>
       {loadingTrailer && (

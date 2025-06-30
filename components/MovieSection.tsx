@@ -22,19 +22,19 @@ const MovieSection: React.FC<MovieSectionProps> = ({
 }) => {
   return (
     <section className="my-8 px-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold capitalize">{genre} Movies</h2>
-        <div>
-          <SearchBar
-            selectedGenre={selectedGenre}
-            onGenreChange={onGenreChange}
-          />
-        </div>
+      <div className="flex items-center justify-between mb-4 w-full">
+        <h2 className="text-3xl ml-5 font-semibold capitalize mb-6">
+          {genre} Movies
+        </h2>
+        <SearchBar
+          selectedGenre={selectedGenre}
+          onGenreChange={onGenreChange}
+        />
       </div>
       {loading ? (
         <Spinner />
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {movies.map((movie) => (
             <MovieCard
               key={movie.id}
