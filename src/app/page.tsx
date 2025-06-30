@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Hero from "@/../components/Hero";
 import MovieSection from "../../components/MovieSection";
-import SearchBar from "../../components/SearchBar";
 import { fetchMovies, genres } from "../../lib/fetchMovie";
 
 export default function Home() {
@@ -31,11 +30,14 @@ export default function Home() {
   return (
     <>
       {/* <Hero /> */}
-      <SearchBar
+
+      <MovieSection
+        genre={genreName}
+        movies={movies}
+        loading={loading}
         selectedGenre={selectedGenre}
         onGenreChange={setSelectedGenre}
       />
-      <MovieSection genre={genreName} movies={movies} loading={loading} />
     </>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 import { genres } from "../lib/fetchMovie";
 
 interface SearchBarProps {
@@ -12,7 +12,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onGenreChange,
 }) => {
   return (
-    <div className="mb-6 flex items-center gap-2">
+    <div className="mb-6 flex items-center gap-2 mr-5">
       <label htmlFor="genre-select" className="font-semibold">
         Genre:
       </label>
@@ -23,11 +23,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
           const val = e.target.value;
           onGenreChange(val === "netflix" ? undefined : Number(val));
         }}
-        className="border rounded px-2 py-1"
+        className="border border-[#171717] rounded px-2 py-1 outline-none"
       >
         <option value="netflix">Netflix Originals</option>
         {genres.map((g) => (
-          <option key={g.code} value={g.code}>
+          <option className="bg-gray-950" key={g.code} value={g.code}>
             {g.name}
           </option>
         ))}
