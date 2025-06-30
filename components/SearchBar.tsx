@@ -1,6 +1,16 @@
 "use client";
 
 import { genres } from "../lib/fetchMovie";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface SearchBarProps {
   selectedGenre: number | undefined;
@@ -13,25 +23,38 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   return (
     <div className="mb-6 flex items-center gap-2 mr-5">
-      <label htmlFor="genre-select" className="font-semibold">
-        Genre:
-      </label>
-      <select
-        id="genre-select"
-        value={selectedGenre ?? "netflix"}
-        onChange={(e) => {
-          const val = e.target.value;
+      <Select
+        value={selectedGenre?.toString() ?? "netflix"}
+        onValueChange={(val) => {
           onGenreChange(val === "netflix" ? undefined : Number(val));
         }}
-        className="border border-[#171717] rounded px-2 py-1 outline-none"
       >
-        <option value="netflix">Netflix Originals</option>
-        {genres.map((g) => (
-          <option className="bg-gray-950" key={g.code} value={g.code}>
-            {g.name}
-          </option>
-        ))}
-      </select>
+        <SelectTrigger className="w-[220px]">
+          <SelectValue placeholder="Select a genre" />
+        </SelectTrigger>
+        <SelectContent className="bg-zinc-900 text-white border-zinc-800">
+          <ScrollArea className="h-48 w-full">
+            <SelectGroup>
+              <SelectLabel className="text-zinc-300">Genres</SelectLabel>
+              <SelectItem
+                value="netflix"
+                className="bg-zinc-900 text-white hover:bg-zinc-800"
+              >
+                Netflix Originals
+              </SelectItem>
+              {genres.map((g) => (
+                <SelectItem
+                  key={g.code}
+                  value={g.code.toString()}
+                  className="bg-zinc-900 text-white hover:bg-zinc-800"
+                >
+                  {g.name}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </ScrollArea>
+        </SelectContent>
+      </Select>
     </div>
   );
 };
