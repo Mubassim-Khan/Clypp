@@ -3,6 +3,7 @@
 import MovieCard from "./MovieCard";
 import SearchBar from "./SearchBar";
 import { Movie } from "../types/Movie.types";
+import { Spinner } from "./Spinner";
 
 interface MovieSectionProps {
   genre: string;
@@ -31,14 +32,14 @@ const MovieSection: React.FC<MovieSectionProps> = ({
         </div>
       </div>
       {loading ? (
-        <div>Loading...</div>
+        <Spinner />
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {movies.map((movie) => (
             <MovieCard
               key={movie.id}
+              id={Number(movie.id)}
               poster={movie.poster_path}
-              trailerUrl={movie.trailerUrl}
               title={movie.title}
             />
           ))}

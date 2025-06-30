@@ -1,25 +1,35 @@
 import React, { useState } from "react";
+import { fetchMovieTrailer } from "../lib/fetchMovie";
+import toast from "react-hot-toast";
 
 interface MovieCardProps {
   poster: string;
-  trailerUrl?: string;
   title: string;
+  id: number;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ poster, trailerUrl, title }) => {
-  const [playTrailer, setPlayTrailer] = useState(false);
+const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
+  const [trailerKey, setTrailerKey] = useState<string | null>(null);
+  const [loadingTrailer, setLoadingTrailer] = useState(false);
 
-  const handleCardClick = () => {
-    if (trailerUrl) setPlayTrailer(true);
+  const handleCardClick = async () => {
+    setLoadingTrailer(true);
+    const trailer = await fetchMovieTrailer(id);
+    setLoadingTrailer(false);
+    if (trailer && trailer.key) {
+      setTrailerKey(trailer.key);
+    } else {
+      setTrailerKey(null);
+      toast.error("Trailer not available.");
+    }
   };
 
   return (
     <div
       className="movie-card transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer max-w-xs mx-auto"
       onClick={handleCardClick}
-      style={{ cursor: trailerUrl ? "pointer" : "default" }}
     >
-      {!playTrailer ? (
+      {!trailerKey ? (
         <img
           src={poster}
           alt={title}
@@ -32,17 +42,23 @@ const MovieCard: React.FC<MovieCardProps> = ({ poster, trailerUrl, title }) => {
             maxWidth: "100%",
           }}
         />
-      ) : trailerUrl ? (
-        <video
-          src={trailerUrl}
-          controls
-          autoPlay
-          className="w-full h-64 rounded-lg shadow-md"
+      ) : (
+        <iframe
+          width="100%"
+          height="256"
+          src={`https://www.youtube.com/embed/${trailerKey}`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="rounded-lg shadow-md"
         />
-      ) : null}
+      )}
       <div className="mt-2 text-center font-semibold text-sm truncate">
         {title}
       </div>
+      {loadingTrailer && (
+        <div className="text-center text-xs">Loading trailer...</div>
+      )}
     </div>
   );
 };
