@@ -57,3 +57,16 @@ export async function fetchMovieTrailer(id: number) {
   );
   return youtubeTrailers.length > 0 ? youtubeTrailers[0] : null;
 }
+
+export async function fetchMovieDetails(id: string) {
+  const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${NEXT_PUBLIC_API_KEY}&language=en-US`;
+  const res = await fetch(url);
+  if (!res.ok) return null;
+  const data = await res.json();
+  const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
+  return {
+    ...data,
+    poster_path: data.poster_path ? `${IMAGE_BASE_URL}${data.poster_path}` : null,
+    backdrop_path: data.backdrop_path ? `${IMAGE_BASE_URL}${data.backdrop_path}` : null,
+  };
+}
