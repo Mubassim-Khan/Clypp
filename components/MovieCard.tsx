@@ -7,9 +7,19 @@ interface MovieCardProps {
   poster: string;
   title: string;
   id: number;
+  description: string;
+  releaseDate: string;
+  voteAverage: string;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
+const MovieCard: React.FC<MovieCardProps> = ({
+  poster,
+  title,
+  id,
+  description,
+  releaseDate,
+  voteAverage,
+}) => {
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [loadingTrailer, setLoadingTrailer] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -62,6 +72,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
         onClose={handleCloseModal}
         trailerKey={trailerKey}
         title={title}
+        description={description}
+        releaseDate={releaseDate}
+        rating={voteAverage}
       />
     </>
   );

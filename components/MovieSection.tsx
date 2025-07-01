@@ -1,34 +1,40 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { fetchMovies, genres } from "../lib/fetchMovie";
+import { Spinner } from "./Spinner";
 import MovieCard from "./MovieCard";
 import SearchBar from "./SearchBar";
-import { Movie } from "../types/Movie.types";
-import { Spinner } from "./Spinner";
 
-interface MovieSectionProps {
-  genre: string;
-  movies: Movie[];
-  loading?: boolean;
-  selectedGenre: number | undefined;
-  onGenreChange: (genre: number | undefined) => void;
-}
+const MovieSection = () => {
+  const [selectedGenre, setSelectedGenre] = useState<number | undefined>(
+    undefined
+  );
+  const [movies, setMovies] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const MovieSection: React.FC<MovieSectionProps> = ({
-  genre,
-  movies = [],
-  loading,
-  selectedGenre,
-  onGenreChange,
-}) => {
+  const genreName =
+    selectedGenre === undefined
+      ? "Netflix Originals"
+      : genres.find((g) => g.code === selectedGenre)?.name || "";
+
+  useEffect(() => {
+    setLoading(true);
+    fetchMovies(selectedGenre).then((results) => {
+      setMovies(Array.isArray(results) ? results : []);
+      setLoading(false);
+    });
+  }, [selectedGenre]);
+
   return (
     <section className="my-8 px-4">
       <div className="flex items-center justify-between mb-4 w-full">
         <h2 className="text-3xl ml-5 font-semibold capitalize mb-6">
-          {genre} Movies
+          {genreName} Movies
         </h2>
         <SearchBar
           selectedGenre={selectedGenre}
-          onGenreChange={onGenreChange}
+          onGenreChange={setSelectedGenre}
         />
       </div>
       {loading ? (
@@ -41,6 +47,9 @@ const MovieSection: React.FC<MovieSectionProps> = ({
               id={Number(movie.id)}
               poster={movie.poster_path}
               title={movie.title || movie.original_name}
+              description={movie.overview}
+              releaseDate={movie.release_date || movie.first_air_date}
+              voteAverage={movie.vote_average}
             />
           ))}
         </div>
