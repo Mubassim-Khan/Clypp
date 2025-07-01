@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { fetchMovieTrailer } from "../lib/fetchMovie";
 import toast from "react-hot-toast";
+import TrailerModal from "../modals/TrailerModal";
 
 interface MovieCardProps {
   poster: string;
@@ -11,11 +12,13 @@ interface MovieCardProps {
 const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [loadingTrailer, setLoadingTrailer] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleCardClick = async () => {
     setLoadingTrailer(true);
     const trailer = await fetchMovieTrailer(id);
     setLoadingTrailer(false);
+    setModalOpen(true);
     if (trailer && trailer.key) {
       setTrailerKey(trailer.key);
     } else {
@@ -24,12 +27,17 @@ const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
     }
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setTrailerKey(null);
+  };
+
   return (
-    <div
-      className="movie-card transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer max-w-xs mx-auto"
-      onClick={handleCardClick}
-    >
-      {!trailerKey ? (
+    <>
+      <div
+        className="movie-card transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer max-w-xs mx-auto"
+        onClick={handleCardClick}
+      >
         <img
           src={poster}
           alt={title}
@@ -42,24 +50,20 @@ const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
             maxWidth: "100%",
           }}
         />
-      ) : (
-        <iframe
-          width="100%"
-          height="256"
-          src={`https://www.youtube.com/embed/${trailerKey}`}
-          title={title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="rounded-lg shadow-md"
-        />
-      )}
-      <div className="mt-2 text-center font-semibold text-medium truncate">
-        {title}
+        <div className="mt-2 text-center font-semibold text-medium truncate">
+          {title}
+        </div>
+        {loadingTrailer && (
+          <div className="text-center text-xs">Loading trailer...</div>
+        )}
       </div>
-      {loadingTrailer && (
-        <div className="text-center text-xs">Loading trailer...</div>
-      )}
-    </div>
+      <TrailerModal
+        open={modalOpen}
+        onClose={handleCloseModal}
+        trailerKey={trailerKey}
+        title={title}
+      />
+    </>
   );
 };
 
