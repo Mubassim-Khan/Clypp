@@ -27,7 +27,9 @@ const Navbar = ({ title }: { title: string }) => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-base">{title}</BreadcrumbPage>
+              <BreadcrumbPage className="text-base">
+                {title || "Not Found!"}
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

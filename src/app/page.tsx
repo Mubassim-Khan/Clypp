@@ -6,7 +6,7 @@ import MovieSection from "../../components/MovieSection";
 export default function Home() {
   return (
     <>
-      {/* <Hero /> */}
+      <Hero />
       <MovieSection />
     </>
   );

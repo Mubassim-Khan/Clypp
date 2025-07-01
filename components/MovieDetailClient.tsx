@@ -20,6 +20,10 @@ export default function MovieDetailClient({ movie }: { movie: any }) {
     setTrailerKey(trailer && trailer.key ? trailer.key : null);
   };
 
+  const ratingPercent = () => {
+    return movie.vote_average ? Math.round((movie.vote_average / 10) * 100) : 0;
+  };
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Backdrop Image */}
@@ -62,16 +66,19 @@ export default function MovieDetailClient({ movie }: { movie: any }) {
           <h1 className="text-4xl font-bold mb-2 text-white drop-shadow-lg">
             {movie.title || movie.original_name}
           </h1>
-          <div className="flex items-center gap-4 mb-4">
+          <div className="text-zinc-200 text-lg leading-relaxed drop-shadow mb-6 mt-4">
+            {movie.overview || "No description available."}
+          </div>
+          <div className="flex justify-between items-center gap-4 mb-4 font-medium">
             <span className="text-yellow-400 font-bold text-2xl drop-shadow">
-              ★ {Number(movie.vote_average).toFixed(1)}
+              ★ {ratingPercent()}%
             </span>
             <span className="text-zinc-300 text-lg">
               Release Date: {movie.release_date || movie.first_air_date}
             </span>
-          </div>
-          <div className="text-zinc-200 text-lg leading-relaxed drop-shadow mb-6">
-            {movie.overview || "No description available."}
+            <span className="text-zinc-300 text-lg">
+              Language: {movie.original_language.toUpperCase() || "N/A"}
+            </span>
           </div>
         </div>
         <button
