@@ -1,53 +1,22 @@
-import React, { useState } from "react";
-import { fetchMovieTrailer } from "../lib/fetchMovie";
-import toast from "react-hot-toast";
-import TrailerModal from "../modals/TrailerModal";
+import React from "react";
+import Link from "next/link";
 
 interface MovieCardProps {
   poster: string;
   title: string;
   id: number;
-  description: string;
-  releaseDate: string;
-  voteAverage: string;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({
-  poster,
-  title,
-  id,
-  description,
-  releaseDate,
-  voteAverage,
-}) => {
-  const [trailerKey, setTrailerKey] = useState<string | null>(null);
-  const [loadingTrailer, setLoadingTrailer] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleCardClick = async () => {
-    setLoadingTrailer(true);
-    const trailer = await fetchMovieTrailer(id);
-    setLoadingTrailer(false);
-    setModalOpen(true);
-    if (trailer && trailer.key) {
-      setTrailerKey(trailer.key);
-    } else {
-      setTrailerKey(null);
-      toast.error("Trailer not available.");
-    }
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-    setTrailerKey(null);
-  };
+const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
+  // Generate a slug for the movie name (for SEO-friendly URLs)
+  const slug = title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
   return (
-    <>
-      <div
-        className="movie-card transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer max-w-xs mx-auto"
-        onClick={handleCardClick}
-      >
+    <Link href={`/${id}/${slug}`} prefetch={false} legacyBehavior>
+      <a className="movie-card transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer max-w-xs mx-auto block">
         <img
           src={poster}
           alt={title}
@@ -63,20 +32,8 @@ const MovieCard: React.FC<MovieCardProps> = ({
         <div className="mt-2 text-center font-semibold text-medium truncate">
           {title}
         </div>
-        {loadingTrailer && (
-          <div className="text-center text-xs">Loading trailer...</div>
-        )}
-      </div>
-      <TrailerModal
-        open={modalOpen}
-        onClose={handleCloseModal}
-        trailerKey={trailerKey}
-        title={title}
-        description={description}
-        releaseDate={releaseDate}
-        rating={voteAverage}
-      />
-    </>
+      </a>
+    </Link>
   );
 };
 

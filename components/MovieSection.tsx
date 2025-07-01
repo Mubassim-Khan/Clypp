@@ -47,9 +47,6 @@ const MovieSection = () => {
               id={Number(movie.id)}
               poster={movie.poster_path}
               title={movie.title || movie.original_name}
-              description={movie.overview}
-              releaseDate={movie.release_date || movie.first_air_date}
-              voteAverage={movie.vote_average}
             />
           ))}
         </div>
