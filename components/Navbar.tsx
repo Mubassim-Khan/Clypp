@@ -7,21 +7,27 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-const Navbar = ({ movie }: { movie: any }) => {
+const Navbar = ({ title }: { title: string }) => {
   return (
-    <nav className="w-full flex justify-center mt-6">
+    <nav className="w-full flex justify-center mt-4">
       <div
-        className="backdrop-blur-md bg-zinc-900/70 rounded-2xl px-8 py-3 shadow-lg flex items-center"
+        className="backdrop-blur-sm bg-zinc-900/60 rounded-2xl px-8 py-3 shadow-lg flex items-center"
         style={{ width: "fit-content" }}
       >
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              <BreadcrumbLink className="font-semibold text-base" href="/">
+                Home
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{movie.title}</BreadcrumbPage>
+              <BreadcrumbPage className="text-base">Movie</BreadcrumbPage>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-base">{title}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
