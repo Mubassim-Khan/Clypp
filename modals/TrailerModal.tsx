@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import AlertPopupModal from "./AlertPopupModal";
 
 interface TrailerModalProps {
   open: boolean;
@@ -25,6 +26,18 @@ const TrailerModal: React.FC<TrailerModalProps> = ({
       onClose();
     }
   };
+
+  // If no trailerKey, show AlertPopup instead of modal
+  if (!trailerKey) {
+    return (
+      <AlertPopupModal
+        open={open}
+        onClose={onClose}
+        title="Trailer Unavailable"
+        message="Trailer was not found for this movie."
+      />
+    );
+  }
 
   return (
     <div
