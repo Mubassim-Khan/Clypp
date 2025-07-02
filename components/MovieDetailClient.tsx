@@ -26,19 +26,18 @@ export default function MovieDetailClient({ movie }: { movie: Movie }) {
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
-      {/* Backdrop Image */}
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-start overflow-hidden">
+      {/* Backdrop image as background */}
       {movie.backdrop_path && (
         <Image
           src={movie.backdrop_path}
           alt={movie.title || movie.original_name}
           fill
-          className="object-cover object-center absolute inset-0 z-0"
+          className="object-cover object-center absolute inset-0"
           priority
         />
       )}
-
-      {/* Dark Overlay */}
+      {/* Overlay for darkening */}
       <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/70 to-zinc-950/85 z-10" />
 
       {/* Navbar at top center */}
@@ -46,11 +45,11 @@ export default function MovieDetailClient({ movie }: { movie: Movie }) {
         <Navbar title={movie.title} />
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-20 flex flex-col md:flex-row items-center md:items-start gap-8 max-w-5xl w-full mx-auto px-4 py-32 mt-15">
+      {/* Main content */}
+      <div className="relative z-20 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 max-w-5xl w-full mx-auto px-2 sm:px-4 py-20 sm:py-32 sm:mt-11">
         {/* Poster */}
         {movie.poster_path && (
-          <div className="w-[220px] min-w-[180px] max-w-[240px] shadow-2xl rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900/80">
+          <div className="w-36 sm:w-[180px] md:w-[220px] max-w-[240px] shadow-2xl rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900/80 mb-6 mt-8 sm:mt-15 md:mt-10 md:mb-0">
             <Image
               src={movie.poster_path}
               alt={movie.title || movie.original_name}
@@ -63,34 +62,42 @@ export default function MovieDetailClient({ movie }: { movie: Movie }) {
         )}
 
         {/* Movie Details */}
-        <div className="flex-1 flex flex-col justify-center text-left">
-          <h1 className="text-4xl font-bold mb-2 text-white drop-shadow-lg">
+        <div className="flex-1 flex flex-col justify-center text-left w-full">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 text-white drop-shadow-lg break-words">
             {movie.title || movie.original_name}
           </h1>
-          <div className="text-zinc-200 text-lg leading-relaxed drop-shadow mb-6 mt-4">
+          <div className="text-zinc-200 text-base sm:text-lg leading-relaxed drop-shadow mb-2 mt-1 font-normal italic">
+            "{movie.tagline}"
+          </div>
+          <div className="text-zinc-200 text-base sm:text-lg leading-relaxed drop-shadow mb-6 mt-2">
             {movie.overview || "No description available."}
           </div>
-          <div className="flex justify-between items-center gap-4 mb-4 font-medium">
-            <span className="text-yellow-400 font-bold text-2xl drop-shadow">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-4 font-medium w-full">
+            <span className="text-yellow-400 font-bold text-xl sm:text-2xl drop-shadow">
               ★ {ratingPercent()}%
             </span>
-            <span className="text-zinc-300 text-lg">
+            <span className="text-zinc-300 text-base sm:text-lg">
               Release Date: {movie.release_date || movie.first_air_date}
             </span>
-            <span className="text-zinc-300 text-lg">
+            <span className="text-zinc-300 text-base sm:text-lg">
               Language: {movie.original_language.toUpperCase() || "N/A"}
             </span>
+            <span className="text-zinc-300 text-base sm:text-lg">
+              Status: {movie.status}
+            </span>
           </div>
+          <button
+            onClick={handleWatchTrailer}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 sm:px-5 sm:py-3 rounded-[20px] min-w-[140px] sm:min-w-[170px] shadow transition-colors cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap text-base sm:text-lg w-fit mt-5"
+            disabled={loadingTrailer}
+          >
+            <FaPlay className="inline" />
+            {loadingTrailer ? "Loading Trailer..." : "Watch Trailer"}
+          </button>
         </div>
-        <button
-          onClick={handleWatchTrailer}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-[20px] shadow transition-colors cursor-pointer"
-          disabled={loadingTrailer}
-        >
-          <FaPlay className="inline mr-2" />
-          {loadingTrailer ? "Loading Trailer..." : "Watch Trailer"}
-        </button>
       </div>
+
+      {/* Trailer Modal */}
       <TrailerModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
