@@ -124,9 +124,25 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@font-face {
+  font-family: "Zentry";
+  src: url("/fonts/zentry-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "robert-regular";
+  src: url("/fonts/robert-regular.woff2") format("woff2");
+}
+
+.special-font {
+  font-family: "Zentry", sans-serif !important;
+  font-feature-settings: "ss01" on;
 }
 
 /* Animations for modal and fade-in effects */
@@ -179,4 +195,34 @@ body {
 }
 .animate-popupInAndOut {
   animation: popupInAndOut 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hero component font */
+.special-font b {
+  font-family: "Zentry";
+  font-feature-settings: "ss01" on;
+}
+
+.animated-word {
+  /* @apply special-font font-zentry font-black opacity-0; */
+  transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
+  transform-origin: 50% 50% -150px !important;
+  will-change: opacity, transform;
+}
+
+.mask-clip-path {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
