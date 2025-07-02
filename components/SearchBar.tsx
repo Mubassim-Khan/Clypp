@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { genres } from "../lib/fetchMovie";
 import { MdMovie } from "react-icons/md";
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
@@ -31,6 +32,19 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onGenreChange,
 }) => {
   const [open, setOpen] = React.useState(false);
+  
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const updateUrl = (genreCode: number | undefined) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (genreCode === undefined) {
+      params.delete("genre");
+    } else {
+      params.set("genre", String(genreCode));
+    }
+    router.replace(`?${params.toString()}`);
+  };
 
   const selectedLabel =
     selectedGenre === undefined
@@ -69,6 +83,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                     value="netflix"
                     onSelect={() => {
                       onGenreChange(undefined);
+                      updateUrl(undefined);
                       setOpen(false);
                     }}
                     className="cursor-pointer"
@@ -89,6 +104,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                       value={g.name.toLowerCase()}
                       onSelect={() => {
                         onGenreChange(g.code);
+                        updateUrl(g.code);
                         setOpen(false);
                       }}
                       className="cursor-pointer"

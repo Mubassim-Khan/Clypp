@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
 
 import { fetchMovies, genres } from "../lib/fetchMovie";
 import { Spinner } from "./Spinner";
@@ -9,6 +10,11 @@ import MovieCard from "./MovieCard";
 import SearchBar from "./SearchBar";
 
 const MovieSection = () => {
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : undefined;
+
   const [selectedGenre, setSelectedGenre] = useState<number | undefined>(
     undefined
   );
@@ -22,6 +28,15 @@ const MovieSection = () => {
     selectedGenre === undefined
       ? "Netflix Originals"
       : genres.find((g) => g.code === selectedGenre)?.name || "";
+
+  useEffect(() => {
+    if (searchParams && searchParams.has("genre")) {
+      const genreCode = Number(searchParams.get("genre"));
+      if (!isNaN(genreCode)) setSelectedGenre(genreCode);
+    } else {
+      setSelectedGenre(undefined);
+    }
+  }, [typeof window !== "undefined" ? window.location.search : ""]);
 
   useEffect(() => {
     setLoading(true);
