@@ -1,6 +1,8 @@
 const NEXT_PUBLIC_API_KEY = process.env.NEXT_PUBLIC_API_KEY as string;
 
 export const genres = [
+  { name: "Trending", code: -1 },
+  { name: "Top Rated", code: -2 },
   { name: "Action", code: 28 },
   { name: "Adventure", code: 12 },
   { name: "Animation", code: 16 },
@@ -24,13 +26,17 @@ export const genres = [
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
 
-export async function fetchMovies(genreCode?: number, page?: number) {
+export async function fetchMovies(genreCode?: number, page: number = 1) {
   let url = "";
-  if (!genreCode) {
+  if (genreCode === undefined) {
     // Default: Netflix Originals
-    url = `https://api.themoviedb.org/3/discover/tv?api_key=${NEXT_PUBLIC_API_KEY}&with_networks=213&page=${
-      page || 1
-    }`;
+    url = `https://api.themoviedb.org/3/discover/tv?api_key=${NEXT_PUBLIC_API_KEY}&with_networks=213&page=${page}`;
+  } else if (genreCode === -1) {
+    // Trending
+    url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${NEXT_PUBLIC_API_KEY}&language=en-US&page=${page}`;
+  } else if (genreCode === -2) {
+    // Top Rated
+    url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${NEXT_PUBLIC_API_KEY}&language=en-US&page=${page}`;
   } else {
     url = `https://api.themoviedb.org/3/discover/movie?api_key=${NEXT_PUBLIC_API_KEY}&with_genres=${genreCode}&page=${page}`;
   }

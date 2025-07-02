@@ -83,7 +83,7 @@ export default function MovieDetailClient({ movie }: { movie: any }) {
         </div>
         <button
           onClick={handleWatchTrailer}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 py-2 rounded shadow transition-colors cursor-pointer"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-[20px] shadow transition-colors cursor-pointer"
           disabled={loadingTrailer}
         >
           <FaPlay className="inline mr-2" />

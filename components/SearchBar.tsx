@@ -83,7 +83,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
                     />
                     Netflix Originals
                   </CommandItem>
-
                   {genres.map((g) => (
                     <CommandItem
                       key={g.code}
