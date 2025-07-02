@@ -23,7 +23,7 @@ const Navbar = ({ title }: { title: string }) => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-base">Movie</BreadcrumbPage>
+              <BreadcrumbPage className="text-base">Movies</BreadcrumbPage>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
