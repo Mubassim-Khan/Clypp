@@ -7,6 +7,7 @@ import { fetchMovies, genres } from "../lib/fetchMovie";
 import { Spinner } from "./Spinner";
 import MovieCard from "./MovieCard";
 import SearchBar from "./SearchBar";
+import { Movie } from "../types/Movie.types";
 
 const MovieSection = () => {
   const searchParams =
@@ -17,7 +18,7 @@ const MovieSection = () => {
   const [selectedGenre, setSelectedGenre] = useState<number | undefined>(
     undefined
   );
-  const [movies, setMovies] = useState<any[]>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);

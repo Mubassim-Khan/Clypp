@@ -1,3 +1,5 @@
+import { Movie, Result } from "../types/Movie.types";
+
 const NEXT_PUBLIC_API_KEY = process.env.NEXT_PUBLIC_API_KEY as string;
 
 export const genres = [
@@ -43,7 +45,7 @@ export async function fetchMovies(genreCode?: number, page: number = 1) {
   const res = await fetch(url);
   const data = await res.json();
   // Map poster_path and backdrop_path to full URLs
-  return (data.results || []).map((movie: any) => ({
+  return (data.results || []).map((movie: Movie) => ({
     ...movie,
     poster_path: movie.poster_path
       ? `${IMAGE_BASE_URL}${movie.poster_path}`
@@ -61,7 +63,7 @@ export async function fetchMovieTrailer(id: number) {
   if (!res.ok) return null;
   const data = await res.json();
   const youtubeTrailers = (data.results || []).filter(
-    (result: any) => result.site === "YouTube" && result.type === "Trailer"
+    (result: Result) => result.site === "YouTube" && result.type === "Trailer"
   );
   return youtubeTrailers.length > 0 ? youtubeTrailers[0] : null;
 }

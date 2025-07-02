@@ -6,8 +6,9 @@ import { FaPlay } from "react-icons/fa";
 import { fetchMovieTrailer } from "../lib/fetchMovie";
 import TrailerModal from "../modals/TrailerModal";
 import Navbar from "./Navbar";
+import { Movie } from "../types/Movie.types";
 
-export default function MovieDetailClient({ movie }: { movie: any }) {
+export default function MovieDetailClient({ movie }: { movie: Movie }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [loadingTrailer, setLoadingTrailer] = useState(false);

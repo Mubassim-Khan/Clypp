@@ -6,12 +6,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { usePathname, useSearchParams } from "next/navigation";
 import { genres } from "../lib/fetchMovie";
 
 const Navbar = ({ title }: { title: string }) => {
-  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
-  const searchParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : undefined;
+  const pathname =
+    typeof window !== "undefined" ? window.location.pathname : "";
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : undefined;
 
   // Try to get genre from URL param or path
   let genreName = "";
@@ -24,7 +27,9 @@ const Navbar = ({ title }: { title: string }) => {
     if (pathParts.length > 2) {
       // Try to match genre name from path
       const maybeGenre = pathParts[0].replace(/-/g, " ");
-      const found = genres.find((g) => g.name.toLowerCase() === maybeGenre.toLowerCase());
+      const found = genres.find(
+        (g) => g.name.toLowerCase() === maybeGenre.toLowerCase()
+      );
       if (found) genreName = found.name;
     }
   }
