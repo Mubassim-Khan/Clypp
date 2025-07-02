@@ -24,13 +24,15 @@ export const genres = [
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
 
-export async function fetchMovies(genreCode?: number) {
+export async function fetchMovies(genreCode?: number, page?: number) {
   let url = "";
   if (!genreCode) {
     // Default: Netflix Originals
-    url = `https://api.themoviedb.org/3/discover/tv?api_key=${NEXT_PUBLIC_API_KEY}&with_networks=213&page=1`;
+    url = `https://api.themoviedb.org/3/discover/tv?api_key=${NEXT_PUBLIC_API_KEY}&with_networks=213&page=${
+      page || 1
+    }`;
   } else {
-    url = `https://api.themoviedb.org/3/discover/movie?api_key=${NEXT_PUBLIC_API_KEY}&with_genres=${genreCode}`;
+    url = `https://api.themoviedb.org/3/discover/movie?api_key=${NEXT_PUBLIC_API_KEY}&with_genres=${genreCode}&page=${page}`;
   }
   const res = await fetch(url);
   const data = await res.json();
@@ -66,7 +68,11 @@ export async function fetchMovieDetails(id: string) {
   const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
   return {
     ...data,
-    poster_path: data.poster_path ? `${IMAGE_BASE_URL}${data.poster_path}` : null,
-    backdrop_path: data.backdrop_path ? `${IMAGE_BASE_URL}${data.backdrop_path}` : null,
+    poster_path: data.poster_path
+      ? `${IMAGE_BASE_URL}${data.poster_path}`
+      : null,
+    backdrop_path: data.backdrop_path
+      ? `${IMAGE_BASE_URL}${data.backdrop_path}`
+      : null,
   };
 }

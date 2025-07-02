@@ -11,7 +11,7 @@ const Navbar = ({ title }: { title: string }) => {
   return (
     <nav className="w-full flex justify-center mt-4">
       <div
-        className="backdrop-blur-sm bg-zinc-900/60 rounded-2xl px-8 py-3 shadow-lg flex items-center"
+        className="backdrop-blur-sm bg-zinc-900/50 rounded-2xl px-8 py-3 shadow-lg flex items-center"
         style={{ width: "fit-content" }}
       >
         <Breadcrumb>
