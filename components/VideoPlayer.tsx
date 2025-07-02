@@ -69,14 +69,14 @@ const VideoPlayer = () => {
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
       {!mainLoaded && (
-        <div className="flex-center absolute z-[100] h-dvh w-screen bg-blue-50">
+        <div className="flex-center absolute z-[100] h-dvh w-screen bg-gray-950">
           <Spinner />
         </div>
       )}
 
       <div
         id="video-frame"
-        className="relative z-10 overflow-hidden rounded-lg bg-blue-75 h-dvh w-screen"
+        className="relative z-10 overflow-hidden rounded-lg bg-gray-950 h-dvh w-screen"
       >
         {/* Mini Clip (centered) */}
         {mainLoaded && (
@@ -138,6 +138,10 @@ const VideoPlayer = () => {
           </div>
         </div>
       </div>
+
+      <h1 className="special-font special-font uppercase font-black absolute bottom-5 right-5 z-40 text-blue-75 text-[1.5rem] sm:text-[15rem] md:text-[5rem] lg:text-[8rem] text-blue-100">
+        stre<b>a</b>ming
+      </h1>
     </div>
   );
 };
