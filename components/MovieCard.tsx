@@ -31,7 +31,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
           maxWidth: "100%",
         }}
       />
-      <div className="mt-2 text-center font-semibold text-medium truncate">
+      <div className="mt-2 text-center font-semibold text-base truncate max-w-[10rem] mx-auto">
         {title}
       </div>
     </Link>
