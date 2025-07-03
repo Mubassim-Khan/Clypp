@@ -88,7 +88,8 @@ const MovieSection = () => {
     <section className="my-8 px-4">
       <div className="flex items-center justify-between mb-4 w-full">
         <h2 className="text-3xl ml-5 font-semibold capitalize mb-6">
-          {genreName} Movies
+          {genreName}
+          {genreName !== "Netflix Originals" && " Movies"}
         </h2>
         <SearchBar
           selectedGenre={selectedGenre}

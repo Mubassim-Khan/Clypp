@@ -10,13 +10,11 @@ import { Movie } from "../types/Movie.types";
 
 interface MovieDetailClientProps {
   movie: Movie;
-  trailer?: { key: string } | null;
   media_type?: "movie" | "tv";
 }
 
 export default function MovieDetailClient({
   movie,
-  trailer,
   media_type,
 }: MovieDetailClientProps) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -86,7 +84,7 @@ export default function MovieDetailClient({
             {movie.title || movie.original_name}
           </h1>
           <div className="text-zinc-200 text-base sm:text-lg leading-relaxed drop-shadow mb-2 mt-1 font-normal italic">
-            "{movie.tagline}"
+            {movie.tagline && <>&quot;{movie.tagline}&quot;</>}
           </div>
           <div className="text-zinc-200 text-base sm:text-lg leading-relaxed drop-shadow mb-6 mt-2">
             {movie.overview || "No description available."}
