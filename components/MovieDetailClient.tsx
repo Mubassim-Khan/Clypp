@@ -3,22 +3,41 @@ import { useState } from "react";
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
 
-import { fetchMovieTrailer } from "../lib/fetchMovie";
+import { fetchMovieTrailer, fetchTvSeriesTrailer } from "../lib/fetchMovie";
 import TrailerModal from "../modals/TrailerModal";
 import Navbar from "./Navbar";
 import { Movie } from "../types/Movie.types";
 
-export default function MovieDetailClient({ movie }: { movie: Movie }) {
+interface MovieDetailClientProps {
+  movie: Movie;
+  trailer?: { key: string } | null;
+  media_type?: "movie" | "tv";
+}
+
+export default function MovieDetailClient({
+  movie,
+  trailer,
+  media_type,
+}: MovieDetailClientProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [loadingTrailer, setLoadingTrailer] = useState(false);
 
+  // Determine media_type if not passed
+  const type = media_type || (movie.first_air_date ? "tv" : "movie");
+
   const handleWatchTrailer = async () => {
     setLoadingTrailer(true);
-    const trailer = await fetchMovieTrailer(Number(movie.id));
+    let trailerData = null;
+
+    if (type === "tv") {
+      trailerData = await fetchTvSeriesTrailer(Number(movie.id));
+    } else {
+      trailerData = await fetchMovieTrailer(Number(movie.id));
+    }
     setLoadingTrailer(false);
     setModalOpen(true);
-    setTrailerKey(trailer && trailer.key ? trailer.key : null);
+    setTrailerKey(trailerData && trailerData.key ? trailerData.key : null);
   };
 
   const ratingPercent = () => {
@@ -42,7 +61,7 @@ export default function MovieDetailClient({ movie }: { movie: Movie }) {
 
       {/* Navbar at top center */}
       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-30 w-full max-w-5xl px-4 pt-4 mb-15">
-        <Navbar title={movie.title} />
+        <Navbar title={movie.title || movie.original_name} />
       </div>
 
       {/* Main content */}

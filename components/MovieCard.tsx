@@ -5,9 +5,10 @@ interface MovieCardProps {
   poster: string;
   title: string;
   id: number;
+  media_type: "movie" | "tv";
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id, media_type }) => {
   const slug = title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
@@ -15,7 +16,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ poster, title, id }) => {
 
   return (
     <Link
-      href={`/${id}/${slug}`}
+      href={`/${media_type}/${id}/${slug}`}
       prefetch={false}
       className="movie-card transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer max-w-xs mx-auto block"
     >

@@ -103,6 +103,7 @@ const MovieSection = () => {
               id={Number(movie.id)}
               poster={movie.poster_path}
               title={movie.title || movie.original_name}
+              media_type={selectedGenre === undefined ? "tv" : "movie"}
             />
           ))}
         </div>
