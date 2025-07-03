@@ -1,6 +1,6 @@
 # Clypp (Movies & Trailers Explorer Platform)
 
-<!-- Insert Preview image -->
+<!-- Insert 2 Preview images -->
 
 <div align="center">
     <img src="https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="next" />

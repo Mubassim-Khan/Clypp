@@ -1,6 +1,6 @@
 "use client";
 
-import VideoPlayer from "../../components/VideoPlayer";
+// import VideoPlayer from "../../components/VideoPlayer";
 import MovieSection from "../../components/MovieSection";
 import Footer from "../../components/Footer";
 
