@@ -3,7 +3,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
-import { Spinner } from "./Spinner";
 import { videoURLs } from "../lib/config";
 
 gsap.registerPlugin(ScrollTrigger);
