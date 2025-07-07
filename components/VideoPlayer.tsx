@@ -8,11 +8,11 @@ import { Spinner } from "./Spinner";
 gsap.registerPlugin(ScrollTrigger);
 
 const videoURLs = [
-  "https://nuto0ah80w3xypz6.public.blob.vercel-storage.com/videos/F1%20The%20Movie-Y0DP2lLUNYiiXf24DuCKbKqkNPjWcd.mp4",
-  "https://nuto0ah80w3xypz6.public.blob.vercel-storage.com/videos/Ballerina-lO6LgBSzw7BzMWQwtzewJCc4qLTgfQ.mp4",
-  "https://nuto0ah80w3xypz6.public.blob.vercel-storage.com/videos/How%20To%20Train%20Your%20Dragon-OFA3cVBDJ5Yx1vAXW8DhIUHQ8l1Q1g.mp4",
-  "https://nuto0ah80w3xypz6.public.blob.vercel-storage.com/videos/The%20Batman-chTvbP7cIzkf2p5KqyfoyhrMtZUcUS.mp4"
-]
+  process.env.NEXT_PUBLIC_VIDEO_1!,
+  process.env.NEXT_PUBLIC_VIDEO_2!,
+  process.env.NEXT_PUBLIC_VIDEO_3!,
+  process.env.NEXT_PUBLIC_VIDEO_4!,
+];
 
 const VideoPlayer = () => {
   const [mainLoaded, setMainLoaded] = useState(false);
@@ -126,13 +126,13 @@ const VideoPlayer = () => {
           autoPlay
           loop
           muted
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover scale-[1.2]"
           preload="auto"
           onLoadedData={() => setMainLoaded(true)}
         />
 
         {/* Overlay UI */}
-        <h1 className="special-font uppercase font-black absolute bottom-5 right-5 z-40 text-blue-75 text-[1.5rem] sm:text-[15rem] md:text-[5rem] lg:text-[8rem] text-blue-100">
+        <h1 className="special-font uppercase font-black absolute bottom-5 right-7 z-40 text-blue-75 text-[1.5rem] sm:text-[15rem] md:text-[5rem] lg:text-[8rem] text-blue-100 mr-2">
           stre<b>a</b>ming
         </h1>
 
