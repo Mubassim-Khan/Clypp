@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "Clypp - Watch Movies & Shows Online in HD",
   description:
     "Clypp is a modern streaming platform where you can explore and watch the latest movies, series, and animations in high-definition. Experience cinema like never before.",
+  icons: {
+    icon: "/favicon.png",
+  },
   keywords: [
     "Clypp",
     "movie streaming",
@@ -31,8 +34,6 @@ export const metadata: Metadata = {
     { name: "Mubassim Ahmed Khan", url: "https://mubassim.vercel.app" },
   ],
   creator: "Clypp",
-  themeColor: "#000000",
-  colorScheme: "dark",
   robots: {
     index: true,
     follow: true,
