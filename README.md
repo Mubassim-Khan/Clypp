@@ -1,6 +1,7 @@
 # Clypp (Movies & Trailers Explorer Platform)
 
-<!-- Insert 2 Preview images -->
+![Preview Image 1](https://github.com/Mubassim-Khan/Clypp/blob/main/public/images/Preview_1.png)
+![Preview Image 2](https://github.com/Mubassim-Khan/Clypp/blob/main/public/images/Preview_2.png)
 
 <div align="center">
     <img src="https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="next" />
