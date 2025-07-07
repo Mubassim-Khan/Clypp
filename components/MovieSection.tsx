@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import { Skeleton } from "@/components/ui/skeleton";
+
 import { fetchMovies, genres } from "../lib/fetchMovie";
 import { Spinner } from "./Spinner";
 import MovieCard from "./MovieCard";
 import SearchBar from "./SearchBar";
 import { Movie } from "../types/Movie.types";
+import ShinyText from "./ShinyText";
 
 const MovieSection = () => {
   const searchParams =
@@ -87,10 +89,15 @@ const MovieSection = () => {
   return (
     <section className="my-8 px-4">
       <div className="flex items-center justify-between mb-4 w-full">
-        <h2 className="text-3xl ml-5 font-semibold capitalize mb-6">
+        <ShinyText
+          disabled={false}
+          speed={2.5}
+          className="text-3xl ml-5 font-semibold capitalize mb-6"
+        >
           {genreName}
           {genreName !== "Netflix Originals" && " Movies"}
-        </h2>
+        </ShinyText>
+
         <SearchBar
           selectedGenre={selectedGenre}
           onGenreChange={setSelectedGenre}
