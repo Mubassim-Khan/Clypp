@@ -1,6 +1,6 @@
 # Clypp (Movies & Trailers Explorer Platform)
 
-![Preview Image](https://github.com/Mubassim-Khan/Clypp/blob/main/public/images/Preview_1.png)
+![Preview Image](https://github.com/Mubassim-Khan/Clypp/blob/main/public/images/Preview.png)
 <!-- ![Preview Image 2](https://github.com/Mubassim-Khan/Clypp/blob/main/public/images/Preview_2.png) -->
 
 <div align="center">
